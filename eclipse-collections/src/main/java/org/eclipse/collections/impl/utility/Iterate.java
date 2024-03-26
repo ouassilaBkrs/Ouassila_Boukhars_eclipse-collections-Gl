@@ -1735,29 +1735,11 @@ public final class Iterate
      *
      * @throws IllegalArgumentException if the Collection is null
      */
-    public static <T> T getFirst(Iterable<T> iterable)
-    {
-        if (iterable instanceof RichIterable)
-        {
-            return ((RichIterable<T>) iterable).getFirst();
+    public static <T> T getFirst(Iterable<T> iterable) {
+        if (iterable == null) {
+            throw new IllegalArgumentException("Cannot get first from null");
         }
-        if (iterable instanceof List)
-        {
-            return ListIterate.getFirst((List<T>) iterable);
-        }
-        if (iterable instanceof SortedSet && !((SortedSet<T>) iterable).isEmpty())
-        {
-            return ((SortedSet<T>) iterable).first();
-        }
-        if (iterable instanceof Collection)
-        {
-            return Iterate.isEmpty(iterable) ? null : iterable.iterator().next();
-        }
-        if (iterable != null)
-        {
-            return IterableIterate.getFirst(iterable);
-        }
-        throw new IllegalArgumentException("Cannot get first from null");
+        return IterableIterate.getFirst(iterable);
     }
 
     /**
