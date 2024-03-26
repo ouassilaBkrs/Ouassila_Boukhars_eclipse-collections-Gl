@@ -1,0 +1,9 @@
+{"ts":1711455361605,"action":"PROJECT_OPENED","tags":{"PROJECT_NAME":"depotGit"}}
+{"ts":1711455374629,"action":"FILE_OPENED","file":"/README.md","tags":{"FILE_LINE_OF_CODE":"200"}}
+{"ts":1711455393987,"action":"FILE_CLOSED","file":"/README.md","tags":{"FILE_LINE_OF_CODE":"200"}}
+{"ts":1711455405376,"action":"IDE_DEACTIVATED"}
+{"ts":1711455415088,"action":"IDE_ACTIVATED"}
+{"ts":1711455428224,"action":"FILE_OPENED","file":"/eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/Iterate.java","tags":{"FILE_LINE_OF_CODE":"3375"}}
+{"ts":1711455450083,"action":"IDE_DEACTIVATED"}
+{"ts":1711455510155,"action":"IDE_ACTIVATED"}
+{"ts":1711455568188,"action":"IDE_DEACTIVATED"}
