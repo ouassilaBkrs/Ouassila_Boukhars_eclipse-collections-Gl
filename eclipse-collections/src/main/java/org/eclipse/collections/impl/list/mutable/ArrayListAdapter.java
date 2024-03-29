@@ -214,11 +214,14 @@ public final class ArrayListAdapter<T>
         return (ArrayListAdapter<T>) super.sortThis();
     }
 
-    @Override
-    public ArrayListAdapter<T> with(T element)
-    {
-        this.add(element);
-        return this;
+    public void addArray(T element) {
+        this.elements.add(element);
+    }
+
+    public ArrayListAdapter<T> withAdded(T element) {
+        ArrayListAdapter<T>  newArray = new ArrayListAdapter<>(this.elements);
+        newArray.addArray(element);
+        return newArray;
     }
 
     public ArrayListAdapter<T> with(T element1, T element2)
