@@ -71,7 +71,8 @@ public final class ConcurrentHashMap<K, V>
     private static final int MAXIMUM_CAPACITY = 1 << 30;
 
     private static final AtomicReferenceFieldUpdater<ConcurrentHashMap, AtomicReferenceArray> TABLE_UPDATER = AtomicReferenceFieldUpdater.newUpdater(ConcurrentHashMap.class, AtomicReferenceArray.class, "table");
-    private static final AtomicIntegerFieldUpdater<ConcurrentHashMap> SIZE_UPDATER = AtomicIntegerFieldUpdater.newUpdater(ConcurrentHashMap.class, "size");
+    private static final AtomicIntegerFieldUpdater<ConcurrentHashMap>
+            SIZE_ATOMIC_UPDATER = AtomicIntegerFieldUpdater.newUpdater(ConcurrentHashMap.class, "size");
     private static final Object RESIZED = new Object();
     private static final Object RESIZING = new Object();
     private static final int PARTITIONED_SIZE_THRESHOLD = 4096; // chosen to keep size below 1% of the total size of the map
@@ -623,7 +624,7 @@ public final class ConcurrentHashMap<K, V>
         while (true)
         {
             int localSize = this.size;
-            if (SIZE_UPDATER.compareAndSet(this, localSize, localSize + value))
+            if (SIZE_ATOMIC_UPDATER.compareAndSet(this, localSize, localSize + value))
             {
                 break;
             }
