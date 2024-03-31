@@ -123,11 +123,10 @@ public final class ConcurrentHashMap<K, V>
         return new ConcurrentHashMap<>();
     }
 
-    public static <K, V> ConcurrentHashMap<K, V> newMap(int newSize)
+    public static <K, V> ConcurrentHashMap<K, V> createMapWithSize(int newSize)
     {
         return new ConcurrentHashMap<>(newSize);
     }
-
     private static int indexFor(int h, int length)
     {
         return h & length - 2;
