@@ -17,7 +17,7 @@ import org.junit.Test;
 /**
  * @since 4.2
  */
-public class TreeBagSerializationTest
+public class MutableSortedTreeBagSerializationTest
 {
     @Test
     public void serializedForm_comparator()
@@ -31,7 +31,7 @@ public class TreeBagSerializationTest
                         + "aWFsaXphYmxlQ29tcGFyYXRvcjt4cHNyAFhvcmcuZWNsaXBzZS5jb2xsZWN0aW9ucy5hcGkuYmxv\n"
                         + "Y2suZmFjdG9yeS5TZXJpYWxpemFibGVDb21wYXJhdG9ycyROYXR1cmFsT3JkZXJDb21wYXJhdG9y\n"
                         + "AAAAAAAAAAECAAB4cHcEAAAAAHg=",
-                TreeBag.newBag(Comparators.reverseNaturalOrder()));
+                MutableSortedTreeBag.newBag(Comparators.reverseNaturalOrder()));
     }
 
     @Test
@@ -45,6 +45,6 @@ public class TreeBagSerializationTest
                         + "cmF0b3J0ABZMamF2YS91dGlsL0NvbXBhcmF0b3I7eHBzcgBNb3JnLmVjbGlwc2UuY29sbGVjdGlv\n"
                         + "bnMuaW1wbC5ibG9jay5mYWN0b3J5LkNvbXBhcmF0b3JzJE5hdHVyYWxPcmRlckNvbXBhcmF0b3IA\n"
                         + "AAAAAAAAAQIAAHhwdwQAAAAAeA==",
-                TreeBag.newBag(Comparators.originalReverseNaturalOrder()));
+                MutableSortedTreeBag.newBag(Comparators.originalReverseNaturalOrder()));
     }
 }

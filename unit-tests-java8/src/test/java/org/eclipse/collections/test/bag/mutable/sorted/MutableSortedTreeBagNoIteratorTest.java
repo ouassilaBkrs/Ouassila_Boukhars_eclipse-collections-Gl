@@ -14,20 +14,20 @@ import java.util.Comparator;
 import java.util.Iterator;
 
 import org.eclipse.collections.api.bag.sorted.MutableSortedBag;
-import org.eclipse.collections.impl.bag.sorted.mutable.TreeBag;
+import org.eclipse.collections.impl.bag.sorted.mutable.MutableSortedTreeBag;
 import org.eclipse.collections.impl.block.factory.Comparators;
 import org.eclipse.collections.impl.test.junit.Java8Runner;
 import org.eclipse.collections.test.IterableTestCase;
 import org.junit.runner.RunWith;
 
 @RunWith(Java8Runner.class)
-public class TreeBagNoIteratorTest implements MutableSortedBagTestCase, OrderedIterableNoIteratorTest
+public class MutableSortedTreeBagNoIteratorTest implements MutableSortedBagTestCase, OrderedIterableNoIteratorTest
 {
     @SafeVarargs
     @Override
     public final <T> MutableSortedBag<T> newWith(T... elements)
     {
-        MutableSortedBag<T> result = new TreeBagNoIterator<>(Comparators.reverseNaturalOrder());
+        MutableSortedBag<T> result = new MutableSortedTreeBagNoIterator<>(Comparators.reverseNaturalOrder());
         IterableTestCase.addAllTo(elements, result);
         return result;
     }
@@ -44,14 +44,14 @@ public class TreeBagNoIteratorTest implements MutableSortedBagTestCase, OrderedI
         OrderedIterableNoIteratorTest.super.RichIterable_iterator_iterationOrder();
     }
 
-    public static class TreeBagNoIterator<T> extends TreeBag<T>
+    public static class MutableSortedTreeBagNoIterator<T> extends MutableSortedTreeBag<T>
     {
-        public TreeBagNoIterator()
+        public MutableSortedTreeBagNoIterator()
         {
             // For serialization
         }
 
-        public TreeBagNoIterator(Comparator<? super T> comparator)
+        public MutableSortedTreeBagNoIterator(Comparator<? super T> comparator)
         {
             super(comparator);
         }

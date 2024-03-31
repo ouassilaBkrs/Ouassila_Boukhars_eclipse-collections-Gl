@@ -29,22 +29,22 @@ import org.junit.Assert;
 import org.junit.Test;
 
 /**
- * JUnit test for {@link TreeBag}.
+ * JUnit test for {@link MutableSortedTreeBag}.
  *
  * @since 4.2
  */
-public class TreeBagTest extends AbstractMutableSortedBagTestCase
+public class MutableSortedTreeBagTest extends AbstractMutableSortedBagTestCase
 {
     @Override
     protected <T> MutableSortedBag<T> newWith(T... littleElements)
     {
-        return TreeBag.newBagWith(littleElements);
+        return MutableSortedTreeBag.newBagWith(littleElements);
     }
 
     @Override
     protected <T> MutableSortedBag<T> newWith(Comparator<? super T> comparator, T... elements)
     {
-        return TreeBag.newBagWith(comparator, elements);
+        return MutableSortedTreeBag.newBagWith(comparator, elements);
     }
 
     @Override
@@ -57,26 +57,29 @@ public class TreeBagTest extends AbstractMutableSortedBagTestCase
     @Test
     public void sortedBagIterableConstructor()
     {
-        TreeBag<Integer> sortedBagA = TreeBag.newBag(Collections.reverseOrder());
-        TreeBag<Integer> sortedBagB = TreeBag.newBag(sortedBagA.with(1).with(2, 3).with(4, 5, 6).with(1, 1, 1, 1));
+        MutableSortedTreeBag<Integer> sortedBagA = MutableSortedTreeBag.newBag(Collections.reverseOrder());
+        MutableSortedTreeBag<Integer>
+                sortedBagB = MutableSortedTreeBag.newBag(sortedBagA.with(1).with(2, 3).with(4, 5, 6).with(1, 1, 1, 1));
         Verify.assertSortedBagsEqual(sortedBagA, sortedBagB);
         Assert.assertTrue(sortedBagA.getFirst().equals(sortedBagB.getFirst()) && sortedBagB.getFirst() == 6);
-        Verify.assertSortedBagsEqual(sortedBagB, TreeBag.newBag(sortedBagB));
+        Verify.assertSortedBagsEqual(sortedBagB, MutableSortedTreeBag.newBag(sortedBagB));
     }
 
     @Test
     public void selectDuplicates()
     {
-        TreeBag<Integer> sortedBagA = TreeBag.newBag(Collections.reverseOrder());
-        TreeBag<Integer> sortedBagB = TreeBag.newBag(sortedBagA.with(1).with(2, 3).with(4, 5, 6).with(1, 1, 1, 1));
-        Verify.assertSortedBagsEqual(TreeBag.newBagWith(1, 1, 1, 1, 1), sortedBagB.selectDuplicates());
+        MutableSortedTreeBag<Integer> sortedBagA = MutableSortedTreeBag.newBag(Collections.reverseOrder());
+        MutableSortedTreeBag<Integer>
+                sortedBagB = MutableSortedTreeBag.newBag(sortedBagA.with(1).with(2, 3).with(4, 5, 6).with(1, 1, 1, 1));
+        Verify.assertSortedBagsEqual(MutableSortedTreeBag.newBagWith(1, 1, 1, 1, 1), sortedBagB.selectDuplicates());
     }
 
     @Test
     public void collectWithIndex()
     {
-        TreeBag<Integer> sortedBagA = TreeBag.newBag(Collections.reverseOrder());
-        TreeBag<Integer> sortedBagB = TreeBag.newBag(sortedBagA.with(1).with(2, 3).with(4, 5, 6).with(1, 1, 1, 1));
+        MutableSortedTreeBag<Integer> sortedBagA = MutableSortedTreeBag.newBag(Collections.reverseOrder());
+        MutableSortedTreeBag<Integer>
+                sortedBagB = MutableSortedTreeBag.newBag(sortedBagA.with(1).with(2, 3).with(4, 5, 6).with(1, 1, 1, 1));
 
         Assert.assertEquals(Lists.mutable.of(
                 PrimitiveTuples.pair((Integer) 6, 0),
@@ -94,8 +97,8 @@ public class TreeBagTest extends AbstractMutableSortedBagTestCase
     @Test
     public void flatCollectWith()
     {
-        TreeBag<String> sortedBagA = TreeBag.newBag(Collections.reverseOrder());
-        TreeBag<String> sortedBagB = TreeBag.newBag(sortedBagA.with("1").with("2", "3").with("1"));
+        MutableSortedTreeBag<String> sortedBagA = MutableSortedTreeBag.newBag(Collections.reverseOrder());
+        MutableSortedTreeBag<String> sortedBagB = MutableSortedTreeBag.newBag(sortedBagA.with("1").with("2", "3").with("1"));
         String s = "Alex";
         Assert.assertEquals(Lists.mutable.of("3", s, "2", s, "1", s, "1", s),
                 sortedBagB.flatCollectWith(Lists.mutable::of, s));
@@ -104,17 +107,18 @@ public class TreeBagTest extends AbstractMutableSortedBagTestCase
     @Test
     public void sortedBagConstructor()
     {
-        MutableSortedBag<String> bagA = TreeBag.newBag(FastList.newListWith("a", "c", "b", "d"));
-        Verify.assertSortedBagsEqual(bagA, TreeBag.newBag(bagA));
-        Verify.assertSortedBagsEqual(bagA, TreeBag.newBag(bagA));
+        MutableSortedBag<String> bagA = MutableSortedTreeBag.newBag(FastList.newListWith("a", "c", "b", "d"));
+        Verify.assertSortedBagsEqual(bagA, MutableSortedTreeBag.newBag(bagA));
+        Verify.assertSortedBagsEqual(bagA, MutableSortedTreeBag.newBag(bagA));
     }
 
     @Test
     public void iterableConstructor()
     {
         LazyIterable<Integer> integerLazyIterable = FastList.newListWith(2, 4, 1, 3).asLazy();
-        TreeBag<Integer> sortedBag = TreeBag.newBag(Comparators.reverseNaturalOrder(), integerLazyIterable);
-        Verify.assertSortedBagsEqual(TreeBag.newBagWith(Comparators.reverseNaturalOrder(), 1, 2, 3, 4), sortedBag);
+        MutableSortedTreeBag<Integer>
+                sortedBag = MutableSortedTreeBag.newBag(Comparators.reverseNaturalOrder(), integerLazyIterable);
+        Verify.assertSortedBagsEqual(MutableSortedTreeBag.newBagWith(Comparators.reverseNaturalOrder(), 1, 2, 3, 4), sortedBag);
     }
 
     @Override

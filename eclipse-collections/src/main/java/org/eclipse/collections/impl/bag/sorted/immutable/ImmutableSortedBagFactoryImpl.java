@@ -16,7 +16,7 @@ import org.eclipse.collections.api.bag.sorted.ImmutableSortedBag;
 import org.eclipse.collections.api.bag.sorted.SortedBag;
 import org.eclipse.collections.api.factory.SortedBags;
 import org.eclipse.collections.api.factory.bag.sorted.ImmutableSortedBagFactory;
-import org.eclipse.collections.impl.bag.sorted.mutable.TreeBag;
+import org.eclipse.collections.impl.bag.sorted.mutable.MutableSortedTreeBag;
 import org.eclipse.collections.impl.utility.Iterate;
 
 public class ImmutableSortedBagFactoryImpl implements ImmutableSortedBagFactory
@@ -60,7 +60,7 @@ public class ImmutableSortedBagFactoryImpl implements ImmutableSortedBagFactory
         {
             return this.of();
         }
-        return new ImmutableSortedBagImpl<>(TreeBag.newBagWith(items));
+        return new ImmutableSortedBagImpl<>(MutableSortedTreeBag.newBagWith(items));
     }
 
     @Override
@@ -112,7 +112,7 @@ public class ImmutableSortedBagFactoryImpl implements ImmutableSortedBagFactory
         {
             return this.of(comparator);
         }
-        return new ImmutableSortedBagImpl<>(TreeBag.newBagWith(comparator, items));
+        return new ImmutableSortedBagImpl<>(MutableSortedTreeBag.newBagWith(comparator, items));
     }
 
     @Override

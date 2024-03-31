@@ -14,7 +14,7 @@ import java.util.Comparator;
 
 import org.eclipse.collections.api.multimap.sortedbag.MutableSortedBagMultimap;
 import org.eclipse.collections.api.tuple.Pair;
-import org.eclipse.collections.impl.bag.sorted.mutable.TreeBag;
+import org.eclipse.collections.impl.bag.sorted.mutable.MutableSortedTreeBag;
 
 public class SynchronizedSortedBagMultimapTest extends AbstractMutableSortedBagMultimapTestCase
 {
@@ -78,8 +78,8 @@ public class SynchronizedSortedBagMultimapTest extends AbstractMutableSortedBagM
 
     @SafeVarargs
     @Override
-    protected final <V> TreeBag<V> createCollection(V... args)
+    protected final <V> MutableSortedTreeBag<V> createCollection(V... args)
     {
-        return TreeBag.newBagWith(args);
+        return MutableSortedTreeBag.newBagWith(args);
     }
 }

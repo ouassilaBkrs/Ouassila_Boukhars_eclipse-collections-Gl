@@ -11,20 +11,20 @@
 package org.eclipse.collections.test.bag.mutable.sorted;
 
 import org.eclipse.collections.api.bag.sorted.MutableSortedBag;
-import org.eclipse.collections.impl.bag.sorted.mutable.TreeBag;
+import org.eclipse.collections.impl.bag.sorted.mutable.MutableSortedTreeBag;
 import org.eclipse.collections.impl.block.factory.Comparators;
 import org.eclipse.collections.impl.test.junit.Java8Runner;
 import org.eclipse.collections.test.IterableTestCase;
 import org.junit.runner.RunWith;
 
 @RunWith(Java8Runner.class)
-public class TreeBagTest implements MutableSortedBagTestCase
+public class MutableSortedTreeBagTest implements MutableSortedBagTestCase
 {
     @SafeVarargs
     @Override
     public final <T> MutableSortedBag<T> newWith(T... elements)
     {
-        MutableSortedBag<T> result = new TreeBag<>(Comparators.reverseNaturalOrder());
+        MutableSortedBag<T> result = new MutableSortedTreeBag<>(Comparators.reverseNaturalOrder());
         IterableTestCase.addAllTo(elements, result);
         return result;
     }

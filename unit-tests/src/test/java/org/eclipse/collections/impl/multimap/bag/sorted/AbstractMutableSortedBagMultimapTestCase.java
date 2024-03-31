@@ -20,7 +20,7 @@ import org.eclipse.collections.api.multimap.list.MutableListMultimap;
 import org.eclipse.collections.api.multimap.sortedbag.MutableSortedBagMultimap;
 import org.eclipse.collections.api.multimap.sortedbag.SortedBagMultimap;
 import org.eclipse.collections.api.tuple.Pair;
-import org.eclipse.collections.impl.bag.sorted.mutable.TreeBag;
+import org.eclipse.collections.impl.bag.sorted.mutable.MutableSortedTreeBag;
 import org.eclipse.collections.impl.block.factory.Comparators;
 import org.eclipse.collections.impl.factory.Bags;
 import org.eclipse.collections.impl.list.mutable.FastList;
@@ -96,7 +96,7 @@ public abstract class AbstractMutableSortedBagMultimapTestCase extends AbstractM
 
         MutableSortedBagMultimap<Integer, Integer> deserialized = SerializeTestHelper.serializeDeserialize(map);
         Verify.assertSortedBagsEqual(
-                TreeBag.newBagWith(Comparators.reverseNaturalOrder(), 1, 2, 3, 4),
+                MutableSortedTreeBag.newBagWith(Comparators.reverseNaturalOrder(), 1, 2, 3, 4),
                 deserialized.get(1));
 
         deserialized.putAll(3, FastList.newListWith(8, 9, 10));

@@ -18,7 +18,7 @@ import java.util.Comparator;
 
 import org.eclipse.collections.api.bag.sorted.ImmutableSortedBag;
 import org.eclipse.collections.api.bag.sorted.MutableSortedBag;
-import org.eclipse.collections.impl.bag.sorted.mutable.TreeBag;
+import org.eclipse.collections.impl.bag.sorted.mutable.MutableSortedTreeBag;
 import org.eclipse.collections.impl.block.procedure.checked.CheckedObjectIntProcedure;
 
 class ImmutableSortedBagSerializationProxy<T> implements Externalizable
@@ -69,7 +69,7 @@ class ImmutableSortedBagSerializationProxy<T> implements Externalizable
     {
         int size = in.readInt();
         Comparator<T> comparator = (Comparator<T>) in.readObject();
-        MutableSortedBag<T> deserializedBag = new TreeBag<>(comparator);
+        MutableSortedBag<T> deserializedBag = new MutableSortedTreeBag<>(comparator);
 
         for (int i = 0; i < size; i++)
         {

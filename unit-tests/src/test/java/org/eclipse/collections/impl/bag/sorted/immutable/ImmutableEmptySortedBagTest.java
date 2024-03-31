@@ -35,7 +35,7 @@ import org.eclipse.collections.impl.bag.mutable.primitive.FloatHashBag;
 import org.eclipse.collections.impl.bag.mutable.primitive.IntHashBag;
 import org.eclipse.collections.impl.bag.mutable.primitive.LongHashBag;
 import org.eclipse.collections.impl.bag.mutable.primitive.ShortHashBag;
-import org.eclipse.collections.impl.bag.sorted.mutable.TreeBag;
+import org.eclipse.collections.impl.bag.sorted.mutable.MutableSortedTreeBag;
 import org.eclipse.collections.impl.block.factory.Comparators;
 import org.eclipse.collections.impl.block.factory.Functions;
 import org.eclipse.collections.impl.block.factory.Predicates;
@@ -117,11 +117,11 @@ public class ImmutableEmptySortedBagTest extends AbstractImmutableSortedBagTestC
         Assert.assertEquals(0, this.classUnderTest().compareTo(this.classUnderTest()));
         Assert.assertEquals(0, this.classUnderTest(Comparator.reverseOrder()).compareTo(this.classUnderTest(Comparator.reverseOrder())));
         Assert.assertEquals(0, this.classUnderTest(Comparator.naturalOrder()).compareTo(this.classUnderTest(Comparator.reverseOrder())));
-        Assert.assertEquals(-1, this.classUnderTest().compareTo(TreeBag.newBagWith(1)));
-        Assert.assertEquals(-1, this.classUnderTest(Comparator.reverseOrder()).compareTo(TreeBag.newBagWith(Comparator.reverseOrder(), 1)));
-        Assert.assertEquals(-5, this.classUnderTest().compareTo(TreeBag.newBagWith(1, 2, 2, 3, 4)));
-        Assert.assertEquals(0, this.classUnderTest().compareTo(TreeBag.newBag()));
-        Assert.assertEquals(0, this.classUnderTest().compareTo(TreeBag.newBag(Comparator.reverseOrder())));
+        Assert.assertEquals(-1, this.classUnderTest().compareTo(MutableSortedTreeBag.newBagWith(1)));
+        Assert.assertEquals(-1, this.classUnderTest(Comparator.reverseOrder()).compareTo(MutableSortedTreeBag.newBagWith(Comparator.reverseOrder(), 1)));
+        Assert.assertEquals(-5, this.classUnderTest().compareTo(MutableSortedTreeBag.newBagWith(1, 2, 2, 3, 4)));
+        Assert.assertEquals(0, this.classUnderTest().compareTo(MutableSortedTreeBag.newBag()));
+        Assert.assertEquals(0, this.classUnderTest().compareTo(MutableSortedTreeBag.newBag(Comparator.reverseOrder())));
     }
 
     @Override
@@ -299,8 +299,8 @@ public class ImmutableEmptySortedBagTest extends AbstractImmutableSortedBagTestC
     @Test
     public void toSortedBag()
     {
-        Assert.assertEquals(TreeBag.newBag(), this.classUnderTest().toSortedBag());
-        Assert.assertEquals(TreeBag.newBag(Comparators.reverseNaturalOrder()), this.classUnderTest(Comparators.reverseNaturalOrder()).toSortedBag());
+        Assert.assertEquals(MutableSortedTreeBag.newBag(), this.classUnderTest().toSortedBag());
+        Assert.assertEquals(MutableSortedTreeBag.newBag(Comparators.reverseNaturalOrder()), this.classUnderTest(Comparators.reverseNaturalOrder()).toSortedBag());
     }
 
     @Override

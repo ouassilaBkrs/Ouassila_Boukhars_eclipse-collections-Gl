@@ -14,7 +14,7 @@
  *     This package contains 2 sorted mutable bag implementation:
  * <ul>
  *     <li>
- *          {@link org.eclipse.collections.impl.bag.sorted.mutable.TreeBag} - a sorted bag backed by Tree data structure..
+ *          {@link org.eclipse.collections.impl.bag.sorted.mutable.MutableSortedTreeBag} - a sorted bag backed by Tree data structure..
  *     </li>
  *     <li>
  *          {@link org.eclipse.collections.impl.bag.sorted.mutable.UnmodifiableSortedBag} -  an unmodifiable view of a SortedBag.

@@ -25,7 +25,7 @@ import org.eclipse.collections.api.multimap.bag.ImmutableBagMultimap;
 import org.eclipse.collections.api.set.ImmutableSet;
 import org.eclipse.collections.api.tuple.primitive.ObjectIntPair;
 import org.eclipse.collections.impl.bag.mutable.primitive.BooleanHashBag;
-import org.eclipse.collections.impl.bag.sorted.mutable.TreeBag;
+import org.eclipse.collections.impl.bag.sorted.mutable.MutableSortedTreeBag;
 import org.eclipse.collections.impl.block.factory.Procedures;
 import org.eclipse.collections.impl.block.function.AddFunction;
 import org.eclipse.collections.impl.block.function.PassThruFunction0;
@@ -720,10 +720,10 @@ public class ImmutableSingletonBagTest extends ImmutableBagTestCase
         ImmutableBag<String> immutableBag = this.newBag();
         MutableSortedBag<String> sortedBag = immutableBag.toSortedBag();
 
-        Verify.assertSortedBagsEqual(TreeBag.newBagWith("1"), sortedBag);
+        Verify.assertSortedBagsEqual(MutableSortedTreeBag.newBagWith("1"), sortedBag);
 
         MutableSortedBag<String> reverse = immutableBag.toSortedBag(Comparator.reverseOrder());
-        Verify.assertSortedBagsEqual(TreeBag.newBagWith(Comparator.reverseOrder(), "1"), reverse);
+        Verify.assertSortedBagsEqual(MutableSortedTreeBag.newBagWith(Comparator.reverseOrder(), "1"), reverse);
     }
 
     @Override
@@ -733,7 +733,7 @@ public class ImmutableSingletonBagTest extends ImmutableBagTestCase
         ImmutableBag<String> immutableBag = this.newBag();
         MutableSortedBag<String> sortedBag = immutableBag.toSortedBagBy(String::valueOf);
 
-        Verify.assertSortedBagsEqual(TreeBag.newBagWith("1"), sortedBag);
+        Verify.assertSortedBagsEqual(MutableSortedTreeBag.newBagWith("1"), sortedBag);
     }
 
     @Override

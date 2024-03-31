@@ -8,29 +8,29 @@
  * http://www.eclipse.org/org/documents/edl-v10.php.
  */
 
-package org.eclipse.collections.impl.multimap.bag.sorted.mutable;
+package org.eclipse.collections.impl.multimap.bag.sorted;
 
 import java.util.Collections;
 import java.util.Comparator;
 
 import org.eclipse.collections.api.bag.sorted.MutableSortedBag;
-import org.eclipse.collections.api.multimap.MutableMultimap;
 import org.eclipse.collections.api.multimap.sortedbag.MutableSortedBagMultimap;
 import org.eclipse.collections.api.tuple.Pair;
-import org.eclipse.collections.impl.bag.sorted.mutable.TreeBag;
-import org.eclipse.collections.impl.block.factory.Comparators;
+import org.eclipse.collections.impl.bag.sorted.mutable.MutableSortedTreeBag;
 import org.eclipse.collections.impl.block.factory.IntegerPredicates;
 import org.eclipse.collections.impl.list.Interval;
 import org.eclipse.collections.impl.list.mutable.FastList;
-import org.eclipse.collections.impl.test.SerializeTestHelper;
 import org.eclipse.collections.impl.test.Verify;
 import org.junit.Assert;
 import org.junit.Test;
 
 /**
  * Test of {@link TreeBagMultimap}.
+ *
+ * @deprecated in 7.0
  */
-public class TreeBagMultimapTest extends AbstractMutableSortedBagMultimapTestCase
+@Deprecated
+public class MutableSortedTreeBagMultimapTest extends AbstractMutableSortedBagMultimapTestCase
 {
     @Override
     protected <K, V> MutableSortedBagMultimap<K, V> newMultimap(Comparator<V> comparator)
@@ -98,9 +98,9 @@ public class TreeBagMultimapTest extends AbstractMutableSortedBagMultimapTestCas
     }
 
     @Override
-    protected <V> TreeBag<V> createCollection(V... args)
+    protected <V> MutableSortedTreeBag<V> createCollection(V... args)
     {
-        return TreeBag.newBagWith(args);
+        return MutableSortedTreeBag.newBagWith(args);
     }
 
     @Test
@@ -117,7 +117,7 @@ public class TreeBagMultimapTest extends AbstractMutableSortedBagMultimapTestCas
         Verify.assertSize(5, map.keysView().toList());
         for (int i = 1; i < 6; ++i)
         {
-            Verify.assertSortedBagsEqual(TreeBag.newBag(Interval.oneTo(i)), map.get(i));
+            Verify.assertSortedBagsEqual(MutableSortedTreeBag.newBag(Interval.oneTo(i)), map.get(i));
         }
     }
 
@@ -130,11 +130,11 @@ public class TreeBagMultimapTest extends AbstractMutableSortedBagMultimapTestCas
             revMap.put(IntegerPredicates.isOdd().accept(i), i);
         }
         Verify.assertSize(2, revMap.keysView().toList());
-        Verify.assertSortedBagsEqual(TreeBag.newBagWith(Collections.reverseOrder(), 9, 7, 5, 3, 1), revMap.get(Boolean.TRUE));
-        Verify.assertSortedBagsEqual(TreeBag.newBagWith(Collections.reverseOrder(), 8, 6, 4, 2), revMap.get(Boolean.FALSE));
+        Verify.assertSortedBagsEqual(MutableSortedTreeBag.newBagWith(Collections.reverseOrder(), 9, 7, 5, 3, 1), revMap.get(Boolean.TRUE));
+        Verify.assertSortedBagsEqual(MutableSortedTreeBag.newBagWith(Collections.reverseOrder(), 8, 6, 4, 2), revMap.get(Boolean.FALSE));
         MutableSortedBagMultimap<Boolean, Integer> revMap2 = TreeBagMultimap.newMultimap(revMap);
         Verify.assertMapsEqual(revMap2.toMap(), revMap.toMap());
-        Verify.assertSortedBagsEqual(TreeBag.newBagWith(Collections.reverseOrder(), 9, 7, 5, 3, 1), revMap2.get(Boolean.TRUE));
+        Verify.assertSortedBagsEqual(MutableSortedTreeBag.newBagWith(Collections.reverseOrder(), 9, 7, 5, 3, 1), revMap2.get(Boolean.TRUE));
     }
 
     @Test
@@ -143,9 +143,9 @@ public class TreeBagMultimapTest extends AbstractMutableSortedBagMultimapTestCas
         TreeBagMultimap<Integer, Integer> bagMultimap = TreeBagMultimap.newMultimap(Collections.reverseOrder());
         MutableSortedBag<Integer> collection = bagMultimap.createCollection();
         collection.addAll(FastList.newListWith(1, 4, 2, 3, 5, 5));
-        Verify.assertSortedBagsEqual(TreeBag.newBagWith(Collections.reverseOrder(), 5, 5, 4, 3, 2, 1), collection);
+        Verify.assertSortedBagsEqual(MutableSortedTreeBag.newBagWith(Collections.reverseOrder(), 5, 5, 4, 3, 2, 1), collection);
         bagMultimap.putAll(1, collection);
-        Verify.assertSortedBagsEqual(TreeBag.newBagWith(Collections.reverseOrder(), 5, 5, 4, 3, 2, 1), collection);
+        Verify.assertSortedBagsEqual(MutableSortedTreeBag.newBagWith(Collections.reverseOrder(), 5, 5, 4, 3, 2, 1), collection);
         bagMultimap.put(1, 0);
         Assert.assertEquals(Integer.valueOf(0), bagMultimap.get(1).getLast());
         bagMultimap.putAll(2, FastList.newListWith(0, 1, 2, 3, 4, 5, 5));
@@ -164,32 +164,5 @@ public class TreeBagMultimapTest extends AbstractMutableSortedBagMultimapTestCas
         Verify.assertMapsEqual(expected.toMap(), actual.toMap());
         Verify.assertSortedBagsEqual(expected.get(1), actual.get(1));
         Verify.assertSortedBagsEqual(expected.get(2), actual.get(2));
-    }
-
-    @Override
-    @Test
-    public void serialization()
-    {
-        TreeBagMultimap<Integer, Integer> map = TreeBagMultimap.newMultimap(Comparators.reverseNaturalOrder());
-        map.putAll(1, FastList.newListWith(1, 2, 3, 4));
-        map.putAll(2, FastList.newListWith(2, 3, 4, 5));
-        Verify.assertPostSerializedEqualsAndHashCode(map);
-
-        TreeBagMultimap<Integer, Integer> deserialized = SerializeTestHelper.serializeDeserialize(map);
-        Verify.assertSortedBagsEqual(
-                TreeBag.newBagWith(Comparators.reverseNaturalOrder(), 1, 2, 3, 4),
-                deserialized.get(1));
-
-        deserialized.putAll(3, FastList.newListWith(8, 9, 10));
-        Verify.assertListsEqual(FastList.newListWith(10, 9, 8), deserialized.get(3).toList());
-    }
-
-    @Test
-    @Override
-    public void clear()
-    {
-        MutableMultimap<Integer, String> multimap = this.newMultimapWithKeysValues(1, "One", 2, "Two", 3, "Three");
-        multimap.clear();
-        Verify.assertEmpty(multimap);
     }
 }

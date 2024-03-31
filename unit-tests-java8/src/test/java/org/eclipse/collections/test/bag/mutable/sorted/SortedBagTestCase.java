@@ -14,7 +14,7 @@ import org.eclipse.collections.api.bag.sorted.MutableSortedBag;
 import org.eclipse.collections.api.bag.sorted.SortedBag;
 import org.eclipse.collections.api.factory.Lists;
 import org.eclipse.collections.api.list.MutableList;
-import org.eclipse.collections.impl.bag.sorted.mutable.TreeBag;
+import org.eclipse.collections.impl.bag.sorted.mutable.MutableSortedTreeBag;
 import org.eclipse.collections.impl.block.factory.Comparators;
 import org.eclipse.collections.test.SortedIterableTestCase;
 import org.eclipse.collections.test.bag.BagTestCase;
@@ -35,13 +35,13 @@ public interface SortedBagTestCase extends SortedIterableTestCase, BagTestCase, 
     @Override
     default <T> SortedBag<T> getExpectedFiltered(T... elements)
     {
-        return new TreeBag<>(Comparators.reverseNaturalOrder(), Lists.immutable.with(elements));
+        return new MutableSortedTreeBag<>(Comparators.reverseNaturalOrder(), Lists.immutable.with(elements));
     }
 
     @Override
     default <T> MutableSortedBag<T> newMutableForFilter(T... elements)
     {
-        return new TreeBag<>(Comparators.reverseNaturalOrder(), Lists.immutable.with(elements));
+        return new MutableSortedTreeBag<>(Comparators.reverseNaturalOrder(), Lists.immutable.with(elements));
     }
 
     @Override

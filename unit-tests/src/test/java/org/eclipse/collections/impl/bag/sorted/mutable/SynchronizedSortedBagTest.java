@@ -36,7 +36,7 @@ public class SynchronizedSortedBagTest extends AbstractMutableSortedBagTestCase
     @Override
     protected <T> MutableSortedBag<T> newWith(T... littleElements)
     {
-        return new SynchronizedSortedBag<>(TreeBag.newBagWith(littleElements));
+        return new SynchronizedSortedBag<>(MutableSortedTreeBag.newBagWith(littleElements));
     }
 
     @SafeVarargs
@@ -49,7 +49,7 @@ public class SynchronizedSortedBagTest extends AbstractMutableSortedBagTestCase
     @Override
     protected <T> MutableSortedBag<T> newWith(Comparator<? super T> comparator, T... elements)
     {
-        return new SynchronizedSortedBag<>(TreeBag.newBagWith(comparator, elements));
+        return new SynchronizedSortedBag<>(MutableSortedTreeBag.newBagWith(comparator, elements));
     }
 
     @Override
@@ -65,7 +65,7 @@ public class SynchronizedSortedBagTest extends AbstractMutableSortedBagTestCase
     {
         super.topOccurrences();
 
-        MutableSortedBag<String> mutable = TreeBag.newBag();
+        MutableSortedBag<String> mutable = MutableSortedTreeBag.newBag();
         mutable.addOccurrences("one", 1);
         mutable.addOccurrences("two", 2);
         mutable.addOccurrences("three", 3);
@@ -91,7 +91,7 @@ public class SynchronizedSortedBagTest extends AbstractMutableSortedBagTestCase
     {
         super.bottomOccurrences();
 
-        MutableSortedBag<String> mutable = TreeBag.newBag();
+        MutableSortedBag<String> mutable = MutableSortedTreeBag.newBag();
         mutable.addOccurrences("one", 1);
         mutable.addOccurrences("two", 2);
         mutable.addOccurrences("three", 3);

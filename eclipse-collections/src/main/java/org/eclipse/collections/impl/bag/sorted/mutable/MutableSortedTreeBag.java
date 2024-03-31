@@ -58,7 +58,7 @@ import org.eclipse.collections.impl.utility.internal.SortedBagIterables;
  *
  * @since 4.2
  */
-public class TreeBag<T>
+public class MutableSortedTreeBag<T>
         extends AbstractMutableSortedBag<T>
         implements Externalizable
 {
@@ -66,73 +66,73 @@ public class TreeBag<T>
     private MutableSortedMap<T, Counter> items;
     private int size;
 
-    public TreeBag()
+    public MutableSortedTreeBag()
     {
         this.items = SortedMaps.mutable.empty();
     }
 
-    private TreeBag(MutableSortedMap<T, Counter> map)
+    private MutableSortedTreeBag(MutableSortedMap<T, Counter> map)
     {
         this.items = map;
         this.size = (int) map.valuesView().sumOfInt(Counter.TO_COUNT);
     }
 
-    public TreeBag(Comparator<? super T> comparator)
+    public MutableSortedTreeBag(Comparator<? super T> comparator)
     {
         this.items = TreeSortedMap.newMap(comparator);
     }
 
-    public TreeBag(SortedBag<T> sortedBag)
+    public MutableSortedTreeBag(SortedBag<T> sortedBag)
     {
         this(sortedBag.comparator(), sortedBag);
     }
 
-    public TreeBag(Comparator<? super T> comparator, Iterable<? extends T> iterable)
+    public MutableSortedTreeBag(Comparator<? super T> comparator, Iterable<? extends T> iterable)
     {
         this(comparator);
         this.addAllIterable(iterable);
     }
 
-    public static <E> TreeBag<E> newBag()
+    public static <E> MutableSortedTreeBag<E> newBag()
     {
-        return new TreeBag<>();
+        return new MutableSortedTreeBag<>();
     }
 
-    public static <E> TreeBag<E> newBag(Comparator<? super E> comparator)
+    public static <E> MutableSortedTreeBag<E> newBag(Comparator<? super E> comparator)
     {
-        return new TreeBag<>(comparator);
+        return new MutableSortedTreeBag<>(comparator);
     }
 
-    public static <E> TreeBag<E> newBag(Iterable<? extends E> source)
+    public static <E> MutableSortedTreeBag<E> newBag(Iterable<? extends E> source)
     {
         if (source instanceof SortedBag<?>)
         {
-            return new TreeBag<>((SortedBag<E>) source);
+            return new MutableSortedTreeBag<>((SortedBag<E>) source);
         }
-        return Iterate.addAllTo(source, TreeBag.newBag());
+        return Iterate.addAllTo(source, MutableSortedTreeBag.newBag());
     }
 
-    public static <E> TreeBag<E> newBag(Comparator<? super E> comparator, Iterable<? extends E> iterable)
+    public static <E> MutableSortedTreeBag<E> newBag(Comparator<? super E> comparator, Iterable<? extends E> iterable)
     {
-        return new TreeBag<>(comparator, iterable);
+        return new MutableSortedTreeBag<>(comparator, iterable);
     }
 
-    public static <E> TreeBag<E> newBagWith(E... elements)
-    {
-        //noinspection SSBasedInspection
-        return TreeBag.newBag(Arrays.asList(elements));
-    }
-
-    public static <E> TreeBag<E> newBagWith(Comparator<? super E> comparator, E... elements)
+    public static <E> MutableSortedTreeBag<E> newBagWith(E... elements)
     {
         //noinspection SSBasedInspection
-        return TreeBag.newBag(comparator, Arrays.asList(elements));
+        return MutableSortedTreeBag.newBag(Arrays.asList(elements));
+    }
+
+    public static <E> MutableSortedTreeBag<E> newBagWith(Comparator<? super E> comparator, E... elements)
+    {
+        //noinspection SSBasedInspection
+        return MutableSortedTreeBag.newBag(comparator, Arrays.asList(elements));
     }
 
     @Override
-    public TreeBag<T> clone()
+    public MutableSortedTreeBag<T> clone()
     {
-        return new TreeBag<>(this);
+        return new MutableSortedTreeBag<>(this);
     }
 
     @Override
@@ -186,7 +186,7 @@ public class TreeBag<T>
     {
         MutableSortedMap<T, Counter> map =
                 this.items.select((each, occurrences) -> predicate.accept(occurrences.getCount()));
-        return new TreeBag<>(map);
+        return new MutableSortedTreeBag<>(map);
     }
 
     @Override
@@ -520,28 +520,28 @@ public class TreeBag<T>
     }
 
     @Override
-    public TreeBag<T> without(T element)
+    public MutableSortedTreeBag<T> without(T element)
     {
         this.remove(element);
         return this;
     }
 
     @Override
-    public TreeBag<T> withAll(Iterable<? extends T> iterable)
+    public MutableSortedTreeBag<T> withAll(Iterable<? extends T> iterable)
     {
         this.addAllIterable(iterable);
         return this;
     }
 
     @Override
-    public TreeBag<T> withoutAll(Iterable<? extends T> iterable)
+    public MutableSortedTreeBag<T> withoutAll(Iterable<? extends T> iterable)
     {
         this.removeAllIterable(iterable);
         return this;
     }
 
     @Override
-    public TreeBag<T> with(T element)
+    public MutableSortedTreeBag<T> with(T element)
     {
         this.add(element);
         return this;
@@ -550,7 +550,7 @@ public class TreeBag<T>
     @Override
     public MutableSortedBag<T> newEmpty()
     {
-        return TreeBag.newBag(this.items.comparator());
+        return MutableSortedTreeBag.newBag(this.items.comparator());
     }
 
     @Override
@@ -706,13 +706,13 @@ public class TreeBag<T>
         return this.items.comparator();
     }
 
-    public TreeBag<T> with(T... elements)
+    public MutableSortedTreeBag<T> with(T... elements)
     {
         this.addAll(Arrays.asList(elements));
         return this;
     }
 
-    public TreeBag<T> with(T element1, T element2)
+    public MutableSortedTreeBag<T> with(T element1, T element2)
     {
         this.add(element1);
         this.add(element2);
@@ -728,7 +728,7 @@ public class TreeBag<T>
         return true;
     }
 
-    public TreeBag<T> with(T element1, T element2, T element3)
+    public MutableSortedTreeBag<T> with(T element1, T element2, T element3)
     {
         this.add(element1);
         this.add(element2);
@@ -744,7 +744,7 @@ public class TreeBag<T>
 
     private class InternalIterator implements Iterator<T>
     {
-        private final Iterator<T> iterator = TreeBag.this.items.keySet().iterator();
+        private final Iterator<T> iterator = MutableSortedTreeBag.this.items.keySet().iterator();
 
         private T currentItem;
         private int occurrences;
@@ -762,7 +762,7 @@ public class TreeBag<T>
             if (this.occurrences == 0)
             {
                 this.currentItem = this.iterator.next();
-                this.occurrences = TreeBag.this.occurrencesOf(this.currentItem);
+                this.occurrences = MutableSortedTreeBag.this.occurrencesOf(this.currentItem);
             }
             this.occurrences--;
             this.canRemove = true;
@@ -779,11 +779,11 @@ public class TreeBag<T>
             if (this.occurrences == 0)
             {
                 this.iterator.remove();
-                TreeBag.this.size--;
+                MutableSortedTreeBag.this.size--;
             }
             else
             {
-                TreeBag.this.remove(this.currentItem);
+                MutableSortedTreeBag.this.remove(this.currentItem);
             }
             this.canRemove = false;
         }

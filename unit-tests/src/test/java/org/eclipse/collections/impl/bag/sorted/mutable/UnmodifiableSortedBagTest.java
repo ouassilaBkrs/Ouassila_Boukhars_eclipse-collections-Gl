@@ -38,14 +38,14 @@ public class UnmodifiableSortedBagTest extends AbstractMutableSortedBagTestCase
     @Override
     protected <T> MutableSortedBag<T> newWith(T... elements)
     {
-        return TreeBag.newBagWith(elements).asUnmodifiable();
+        return MutableSortedTreeBag.newBagWith(elements).asUnmodifiable();
     }
 
     @SafeVarargs
     @Override
     protected final <T> MutableSortedBag<T> newWithOccurrences(ObjectIntPair<T>... elementsWithOccurrences)
     {
-        MutableSortedBag<T> bag = TreeBag.newBag();
+        MutableSortedBag<T> bag = MutableSortedTreeBag.newBag();
         for (int i = 0; i < elementsWithOccurrences.length; i++)
         {
             ObjectIntPair<T> itemToAdd = elementsWithOccurrences[i];
@@ -57,7 +57,7 @@ public class UnmodifiableSortedBagTest extends AbstractMutableSortedBagTestCase
     @Override
     protected <T> MutableSortedBag<T> newWith(Comparator<? super T> comparator, T... elements)
     {
-        return TreeBag.newBagWith(comparator, elements).asUnmodifiable();
+        return MutableSortedTreeBag.newBagWith(comparator, elements).asUnmodifiable();
     }
 
     @Override

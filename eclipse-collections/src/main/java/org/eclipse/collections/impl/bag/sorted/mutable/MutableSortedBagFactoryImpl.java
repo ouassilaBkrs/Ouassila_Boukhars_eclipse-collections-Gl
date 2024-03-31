@@ -23,14 +23,14 @@ public class MutableSortedBagFactoryImpl implements MutableSortedBagFactory
     public <T> MutableSortedBag<T> empty()
     {
         //noinspection SSBasedInspection
-        return TreeBag.newBag();
+        return MutableSortedTreeBag.newBag();
     }
 
     @Override
     public <T> MutableSortedBag<T> empty(Comparator<? super T> comparator)
     {
         //noinspection SSBasedInspection
-        return TreeBag.newBag(comparator);
+        return MutableSortedTreeBag.newBag(comparator);
     }
 
     @Override
@@ -43,7 +43,7 @@ public class MutableSortedBagFactoryImpl implements MutableSortedBagFactory
     public <T> MutableSortedBag<T> with()
     {
         //noinspection SSBasedInspection
-        return TreeBag.newBag();
+        return MutableSortedTreeBag.newBag();
     }
 
     @Override
@@ -56,7 +56,7 @@ public class MutableSortedBagFactoryImpl implements MutableSortedBagFactory
     public <T> MutableSortedBag<T> with(Comparator<? super T> comparator)
     {
         //noinspection SSBasedInspection
-        return TreeBag.newBag(comparator);
+        return MutableSortedTreeBag.newBag(comparator);
     }
 
     @Override
@@ -68,7 +68,7 @@ public class MutableSortedBagFactoryImpl implements MutableSortedBagFactory
     @Override
     public <T> MutableSortedBag<T> with(T... elements)
     {
-        return TreeBag.newBagWith(elements);
+        return MutableSortedTreeBag.newBagWith(elements);
     }
 
     @Override
@@ -80,7 +80,7 @@ public class MutableSortedBagFactoryImpl implements MutableSortedBagFactory
     @Override
     public <T> MutableSortedBag<T> with(Comparator<? super T> comparator, T... elements)
     {
-        return TreeBag.newBagWith(comparator, elements);
+        return MutableSortedTreeBag.newBagWith(comparator, elements);
     }
 
     @Override
@@ -93,7 +93,7 @@ public class MutableSortedBagFactoryImpl implements MutableSortedBagFactory
     public <T> MutableSortedBag<T> withAll(Iterable<? extends T> items)
     {
         //noinspection SSBasedInspection
-        return TreeBag.newBag(items);
+        return MutableSortedTreeBag.newBag(items);
     }
 
     @Override
@@ -106,6 +106,6 @@ public class MutableSortedBagFactoryImpl implements MutableSortedBagFactory
     public <T> MutableSortedBag<T> withAll(Comparator<? super T> comparator, Iterable<? extends T> items)
     {
         //noinspection SSBasedInspection
-        return TreeBag.newBag(comparator, items);
+        return MutableSortedTreeBag.newBag(comparator, items);
     }
 }

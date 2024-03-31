@@ -32,7 +32,7 @@ public class UnmodifiableSortedBagSerializationTest
                         + "Q29tcGFyYXRvcjt4cHNyAFhvcmcuZWNsaXBzZS5jb2xsZWN0aW9ucy5hcGkuYmxvY2suZmFjdG9y\n"
                         + "eS5TZXJpYWxpemFibGVDb21wYXJhdG9ycyROYXR1cmFsT3JkZXJDb21wYXJhdG9yAAAAAAAAAAEC\n"
                         + "AAB4cHcEAAAAAHh4",
-                UnmodifiableSortedBag.of(TreeBag.newBag(Comparators.reverseNaturalOrder())));
+                UnmodifiableSortedBag.of(MutableSortedTreeBag.newBag(Comparators.reverseNaturalOrder())));
     }
 
     @Test
@@ -47,6 +47,6 @@ public class UnmodifiableSortedBagSerializationTest
                         + "amF2YS91dGlsL0NvbXBhcmF0b3I7eHBzcgBNb3JnLmVjbGlwc2UuY29sbGVjdGlvbnMuaW1wbC5i\n"
                         + "bG9jay5mYWN0b3J5LkNvbXBhcmF0b3JzJE5hdHVyYWxPcmRlckNvbXBhcmF0b3IAAAAAAAAAAQIA\n"
                         + "AHhwdwQAAAAAeHg=",
-                UnmodifiableSortedBag.of(TreeBag.newBag(Comparators.originalReverseNaturalOrder())));
+                UnmodifiableSortedBag.of(MutableSortedTreeBag.newBag(Comparators.originalReverseNaturalOrder())));
     }
 }
