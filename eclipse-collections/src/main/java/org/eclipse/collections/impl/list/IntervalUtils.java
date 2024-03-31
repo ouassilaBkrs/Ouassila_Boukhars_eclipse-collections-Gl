@@ -57,31 +57,26 @@ public final class IntervalUtils
         return (int) result;
     }
 
-    public static boolean contains(long value, long from, long to, long step)
-    {
-        return IntervalUtils.isWithinBoundaries(value, from, to, step)
-                && (value - from) % step == 0L;
+    public static boolean contains(long value, long from, long to, long step) {
+        return IntervalUtils.isWithinBoundaries(value, from, to, step) && IntervalUtils.isAtIntervalBoundary(value, from, step);
     }
-
     public static boolean isWithinBoundaries(long value, long from, long to, long step)
     {
         return step > 0L && from <= value && value <= to
                 || step < 0L && to <= value && value <= from;
     }
 
-    public static int indexOf(long value, long from, long to, long step)
-    {
-        if (!IntervalUtils.isWithinBoundaries(value, from, to, step))
-        {
+    public static int indexOf(long value, long from, long to, long step) {
+        if (!IntervalUtils.isWithinBoundaries(value, from, to, step)) {
             return -1;
         }
         long diff = value - from;
-        if (diff % step == 0L)
-        {
+        if (IntervalUtils.isAtIntervalBoundary(value, from, step)) {
             return (int) (diff / step);
         }
         return -1;
     }
+
 
     public static long valueAtIndex(int index, long from, long to, long step)
     {
@@ -97,21 +92,26 @@ public final class IntervalUtils
         return Math.max(value, to);
     }
 
-    public static int binarySearch(long value, long from, long to, long step)
-    {
-        if (step > 0L && from > value || step < 0L && from < value)
-        {
+    private static boolean isAtIntervalBoundary(long value, long from, long step) {
+        return (value - from) % step == 0L;
+    }
+    public static int binarySearch(long value, long from, long to, long step) {
+        // Vérification si value est en dehors des limites
+        if (IntervalUtils.isWithinBoundaries(value,from,to, step)) {
             return -1;
         }
 
-        if (step > 0L && to < value || step < 0 && to > value)
-        {
-            return -1 - IntervalUtils.intSize(from, to, step);
-        }
+        // Calcul de l'index
+        int index = (int) ((value - from) / step);
 
-        long diff = value - from;
-        int index = (int) (diff / step);
-        return diff % step == 0L ? index : (index + 2) * -1;
+        // Vérification si value est exactement à la limite de la plage
+        if (IntervalUtils.isAtIntervalBoundary(value, from, step)) {
+            return index;
+        } else {
+            // Si value est entre deux valeurs de la plage
+            return (index + 2) * -1;
+        }
     }
+
 }
 
