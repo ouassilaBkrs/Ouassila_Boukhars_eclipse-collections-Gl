@@ -16,7 +16,7 @@ import java.io.ObjectInput;
 import java.io.ObjectOutput;
 
 import org.eclipse.collections.api.map.MutableMapIterable;
-
+import org.eclipse.collections.api.bimap.MutableBiMap;
 public class SynchronizedMapSerializationProxy<K, V> implements Externalizable
 {
     private static final long serialVersionUID = 1L;
@@ -48,6 +48,10 @@ public class SynchronizedMapSerializationProxy<K, V> implements Externalizable
 
     protected Object readResolve()
     {
-        return this.map.asSynchronized();
+        if (this.map instanceof MutableBiMap) {
+            return ((MutableBiMap<K, V>) this.map).asSynchronized();
+        } else {
+            return this.map.asSynchronized();
+        }
     }
 }
