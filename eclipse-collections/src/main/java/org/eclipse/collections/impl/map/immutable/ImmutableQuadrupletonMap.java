@@ -177,8 +177,8 @@ final class ImmutableQuadrupletonMap<K, V>
         return Maps.immutable.with(this.value1, this.key1, this.value2, this.key2, this.value3, this.key3, this.value4, this.key4);
     }
 
-    @Override
-    public void forEachKeyValue(Procedure2<? super K, ? super V> procedure)
+
+    private void forEachProcedure(Procedure2<? super K, ? super V> procedure)
     {
         procedure.value(this.key1, this.value1);
         procedure.value(this.key2, this.value2);
@@ -187,40 +187,40 @@ final class ImmutableQuadrupletonMap<K, V>
     }
 
     @Override
+    public void forEachKeyValue(Procedure2<? super K, ? super V> procedure)
+    {
+
+        this.forEachProcedure(procedure);
+    }
+
+    @Override
     public void forEachKey(Procedure<? super K> procedure)
     {
-        procedure.value(this.key1);
-        procedure.value(this.key2);
-        procedure.value(this.key3);
-        procedure.value(this.key4);
+        this.forEachProcedure((key, value) -> procedure.value(key));
     }
 
     @Override
     public void forEachValue(Procedure<? super V> procedure)
     {
-        procedure.value(this.value1);
-        procedure.value(this.value2);
-        procedure.value(this.value3);
-        procedure.value(this.value4);
+        this.forEachProcedure((key, value) -> procedure.value(value));
     }
 
     @Override
     public void forEachWithIndex(ObjectIntProcedure<? super V> objectIntProcedure)
     {
-        objectIntProcedure.value(this.value1, 0);
-        objectIntProcedure.value(this.value2, 1);
-        objectIntProcedure.value(this.value3, 2);
-        objectIntProcedure.value(this.value4, 3);
+        this.forEachProcedure((key, value) -> {
+            final int index = 0;
+            objectIntProcedure.value(value, index);
+        });
     }
+
 
     @Override
     public <P> void forEachWith(Procedure2<? super V, ? super P> procedure, P parameter)
     {
-        procedure.value(this.value1, parameter);
-        procedure.value(this.value2, parameter);
-        procedure.value(this.value3, parameter);
-        procedure.value(this.value4, parameter);
+        this.forEachProcedure((key, value) -> procedure.value(value, parameter));
     }
+
 
     @Override
     public <K2, V2> ImmutableMap<K2, V2> collect(Function2<? super K, ? super V, Pair<K2, V2>> function)
@@ -283,62 +283,51 @@ final class ImmutableQuadrupletonMap<K, V>
         throw new IllegalStateException("Size must be 1 but was " + this.size());
     }
 
+    s
+
     private ImmutableMap<K, V> filter(Predicate2<? super K, ? super V> predicate)
     {
+        int result = this.calculateResult(predicate);
+
+        return this.createImmutableMap(result);
+    }
+
+    private int calculateResult(Predicate2<? super K, ? super V> predicate) {
         int result = 0;
 
-        if (predicate.accept(this.key1, this.value1))
-        {
+        if (predicate.accept(this.key1, this.value1)) {
             result |= 1;
         }
-        if (predicate.accept(this.key2, this.value2))
-        {
+        if (predicate.accept(this.key2, this.value2)) {
             result |= 2;
         }
-        if (predicate.accept(this.key3, this.value3))
-        {
+        if (predicate.accept(this.key3, this.value3)) {
             result |= 4;
         }
-        if (predicate.accept(this.key4, this.value4))
-        {
+        if (predicate.accept(this.key4, this.value4)) {
             result |= 8;
         }
 
-        switch (result)
-        {
-            case 1:
-                return Maps.immutable.with(this.key1, this.value1);
-            case 2:
-                return Maps.immutable.with(this.key2, this.value2);
-            case 3:
-                return Maps.immutable.with(this.key1, this.value1, this.key2, this.value2);
-            case 4:
-                return Maps.immutable.with(this.key3, this.value3);
-            case 5:
-                return Maps.immutable.with(this.key1, this.value1, this.key3, this.value3);
-            case 6:
-                return Maps.immutable.with(this.key2, this.value2, this.key3, this.value3);
-            case 7:
-                return Maps.immutable.with(this.key1, this.value1, this.key2, this.value2, this.key3, this.value3);
-            case 8:
-                return Maps.immutable.with(this.key4, this.value4);
-            case 9:
-                return Maps.immutable.with(this.key1, this.value1, this.key4, this.value4);
-            case 10:
-                return Maps.immutable.with(this.key2, this.value2, this.key4, this.value4);
-            case 11:
-                return Maps.immutable.with(this.key1, this.value1, this.key2, this.value2, this.key4, this.value4);
-            case 12:
-                return Maps.immutable.with(this.key3, this.value3, this.key4, this.value4);
-            case 13:
-                return Maps.immutable.with(this.key1, this.value1, this.key3, this.value3, this.key4, this.value4);
-            case 14:
-                return Maps.immutable.with(this.key2, this.value2, this.key3, this.value3, this.key4, this.value4);
-            case 15:
-                return Maps.immutable.with(this.key1, this.value1, this.key2, this.value2, this.key3, this.value3, this.key4, this.value4);
-            default:
-                return Maps.immutable.empty();
+        return result;
+    }
+
+    private ImmutableMap<K, V> createImmutableMap(int result) {
+        ImmutableMap.Builder<K, V> builder = Maps.immutable.builder();
+
+        if ((result & 1) != 0) {
+            builder.put(this.key1, this.value1);
         }
+        if ((result & 2) != 0) {
+            builder.put(this.key2, this.value2);
+        }
+        if ((result & 4) != 0) {
+            builder.put(this.key3, this.value3);
+        }
+        if ((result & 8) != 0) {
+            builder.put(this.key4, this.value4);
+        }
+
+        return builder.build();
     }
 
     private Object writeReplace()
