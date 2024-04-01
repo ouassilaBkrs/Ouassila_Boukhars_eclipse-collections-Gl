@@ -722,7 +722,7 @@ class ImmutableSortedBagImpl<T>
             }
         }
 
-        throw new AssertionError();
+        throw new IllegalStateException("Unexpected condition occurred while taking elements.");
     }
 
     @Override
