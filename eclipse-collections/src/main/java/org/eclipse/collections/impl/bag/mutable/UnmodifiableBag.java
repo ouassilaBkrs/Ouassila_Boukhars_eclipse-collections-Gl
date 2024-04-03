@@ -16,7 +16,8 @@ import java.io.ObjectInput;
 import java.io.ObjectOutput;
 import java.io.Serializable;
 import java.util.Collection;
-
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import org.eclipse.collections.api.RichIterable;
 import org.eclipse.collections.api.bag.ImmutableBag;
 import org.eclipse.collections.api.bag.MutableBag;
@@ -68,6 +69,7 @@ public class UnmodifiableBag<T>
         extends AbstractUnmodifiableMutableCollection<T>
         implements MutableBag<T>, Serializable
 {
+    private transient MutableBag<T> mutableBag;
     UnmodifiableBag(MutableBag<? extends T> mutableBag)
     {
         super(mutableBag);
@@ -412,53 +414,20 @@ public class UnmodifiableBag<T>
 
     protected Object writeReplace()
     {
-        return new UnmodifiableBagSerializationProxy<>(this.getMutableBag());
+        return this.getMutableBag();
     }
 
-    private static class UnmodifiableBagSerializationProxy<T> implements Externalizable
-    {
-        private static final long serialVersionUID = 1L;
-
-        private MutableBag<T> mutableBag;
-
-        public UnmodifiableBagSerializationProxy()
-        {
-            // Empty constructor for Externalizable class
-        }
-
-        private UnmodifiableBagSerializationProxy(MutableBag<T> bag)
-        {
-            this.mutableBag = bag;
-        }
-
-        @Override
-        public void writeExternal(ObjectOutput out) throws IOException
-        {
-            try
-            {
-                out.writeObject(this.mutableBag);
-            }
-            catch (RuntimeException e)
-            {
-                if (e.getCause() instanceof IOException)
-                {
-                    throw (IOException) e.getCause();
-                }
-                throw e;
-            }
-        }
-
-        @Override
-        public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException
-        {
-            this.mutableBag = (MutableBag<T>) in.readObject();
-        }
-
-        protected Object readResolve()
-        {
-            return this.mutableBag.asUnmodifiable();
-        }
+    private void writeObject(ObjectOutputStream out) throws IOException {
+        out.defaultWriteObject();
+        out.writeObject(this.getMutableBag());
     }
+
+    private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
+        in.defaultReadObject();
+        MutableBag<? extends T> mutableBag = (MutableBag<? extends T>) in.readObject();
+        this.mutableBag = (MutableBag<T>) mutableBag.asUnmodifiable();
+    }
+
 
     @Override
     public MutableSet<T> selectUnique()

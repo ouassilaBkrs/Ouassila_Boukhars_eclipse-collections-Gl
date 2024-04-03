@@ -10,8 +10,12 @@
 
 package org.eclipse.collections.impl.bag.mutable;
 
+import java.io.ObjectOutput;
 import java.util.Set;
-
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import org.eclipse.collections.api.RichIterable;
 import org.eclipse.collections.api.bag.Bag;
 import org.eclipse.collections.api.bag.ImmutableBag;
@@ -311,5 +315,23 @@ public class UnmodifiableBagTest
         RichIterable<String> expected = bag.toSet();
         RichIterable<String> actual = bag.asUnmodifiable().distinctView();
         Assert.assertEquals(expected, actual);
+    }
+
+
+    @Test
+    public void writeObjectAndReadObject() throws Exception {
+        UnmodifiableBag<String> bag = (UnmodifiableBag<String>) Bags.mutable.of("a", "b", "c").asUnmodifiable();
+
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        ObjectOutput objectOutputStream = new ObjectOutputStream(outputStream);
+        objectOutputStream.writeObject(bag);
+        objectOutputStream.close();
+
+        ByteArrayInputStream inputStream = new ByteArrayInputStream(outputStream.toByteArray());
+        ObjectInputStream objectInputStream = new ObjectInputStream(inputStream);
+        UnmodifiableBag<String> deserializedBag = (UnmodifiableBag<String>) objectInputStream.readObject();
+        objectInputStream.close();
+
+        Assert.assertEquals(bag, deserializedBag);
     }
 }
