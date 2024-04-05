@@ -57,6 +57,10 @@ public final class IntervalUtils
         return (int) result;
     }
 
+    private static boolean isAtIntervalBoundary(long value, long from, long step) {
+        return (value - from) % step == 0L;
+    }
+
     public static boolean contains(long value, long from, long to, long step) {
         return IntervalUtils.isWithinBoundaries(value, from, to, step) && IntervalUtils.isAtIntervalBoundary(value, from, step);
     }
@@ -92,9 +96,6 @@ public final class IntervalUtils
         return Math.max(value, to);
     }
 
-    private static boolean isAtIntervalBoundary(long value, long from, long step) {
-        return (value - from) % step == 0L;
-    }
     public static int binarySearch(long value, long from, long to, long step) {
         // Vérification si value est en dehors des limites
         if (IntervalUtils.isWithinBoundaries(value,from,to, step)) {
