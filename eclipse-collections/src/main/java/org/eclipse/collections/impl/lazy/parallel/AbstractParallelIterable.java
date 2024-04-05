@@ -48,7 +48,7 @@ import org.eclipse.collections.api.set.MutableSet;
 import org.eclipse.collections.api.set.sorted.MutableSortedSet;
 import org.eclipse.collections.impl.Counter;
 import org.eclipse.collections.impl.bag.mutable.HashBag;
-import org.eclipse.collections.impl.bag.sorted.mutable.TreeBag;
+import org.eclipse.collections.impl.bag.sorted.mutable.MutableSortedTreeBag;
 import org.eclipse.collections.impl.block.factory.Comparators;
 import org.eclipse.collections.impl.block.factory.Functions2;
 import org.eclipse.collections.impl.block.factory.Predicates;
@@ -531,7 +531,7 @@ public abstract class AbstractParallelIterable<T, B extends Batch<T>> implements
     @Override
     public MutableSortedBag<T> toSortedBag()
     {
-        MutableSortedBag<T> result = TreeBag.<T>newBag().asSynchronized();
+        MutableSortedBag<T> result = MutableSortedTreeBag.<T>newBag().asSynchronized();
         this.forEach(CollectionAddProcedure.on(result));
         return result;
     }

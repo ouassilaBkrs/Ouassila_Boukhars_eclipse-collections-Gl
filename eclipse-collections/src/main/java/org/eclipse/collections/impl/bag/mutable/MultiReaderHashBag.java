@@ -699,7 +699,7 @@ public final class MultiReaderHashBag<T>
             return (MutableBag<T>) this.delegate;
         }
 
-        public void becomeUseless()
+        public void becomeUseless()with
         {
             this.delegate = null;
             this.requestedIterators.each(UntouchableIterator::becomeUseless);

@@ -58,7 +58,7 @@ import org.eclipse.collections.impl.bag.mutable.primitive.FloatHashBag;
 import org.eclipse.collections.impl.bag.mutable.primitive.IntHashBag;
 import org.eclipse.collections.impl.bag.mutable.primitive.LongHashBag;
 import org.eclipse.collections.impl.bag.mutable.primitive.ShortHashBag;
-import org.eclipse.collections.impl.bag.sorted.mutable.TreeBag;
+import org.eclipse.collections.impl.bag.sorted.mutable.MutableSortedTreeBag;
 import org.eclipse.collections.impl.block.factory.Comparators;
 import org.eclipse.collections.impl.block.factory.Functions;
 import org.eclipse.collections.impl.block.factory.IntegerPredicates;
@@ -731,10 +731,10 @@ public abstract class MapIterableTestCase
         MapIterable<String, Integer> map = this.newMapWithKeysValues("1", 1, "2", 2, "3", 3, "4", 4);
 
         MutableSortedBag<Integer> sorted = map.toSortedBag();
-        Verify.assertSortedBagsEqual(TreeBag.newBagWith(1, 2, 3, 4), sorted);
+        Verify.assertSortedBagsEqual(MutableSortedTreeBag.newBagWith(1, 2, 3, 4), sorted);
 
         MutableSortedBag<Integer> reverse = map.toSortedBag(Collections.reverseOrder());
-        Verify.assertSortedBagsEqual(TreeBag.newBagWith(Comparators.reverseNaturalOrder(), 1, 2, 3, 4), reverse);
+        Verify.assertSortedBagsEqual(MutableSortedTreeBag.newBagWith(Comparators.reverseNaturalOrder(), 1, 2, 3, 4), reverse);
     }
 
     @Test
@@ -743,7 +743,7 @@ public abstract class MapIterableTestCase
         MapIterable<String, Integer> map = this.newMapWithKeysValues("1", 1, "2", 2, "3", 3, "4", 4);
 
         MutableSortedBag<Integer> sorted = map.toSortedBagBy(String::valueOf);
-        Verify.assertSortedBagsEqual(TreeBag.newBagWith(1, 2, 3, 4), sorted);
+        Verify.assertSortedBagsEqual(MutableSortedTreeBag.newBagWith(1, 2, 3, 4), sorted);
     }
 
     @Test

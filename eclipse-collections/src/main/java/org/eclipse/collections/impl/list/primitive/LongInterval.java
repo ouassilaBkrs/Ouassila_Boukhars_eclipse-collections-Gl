@@ -863,9 +863,11 @@ public final class LongInterval
         return this.median();
     }
 
+
     @Override
     public double median()
     {
+
         return ((double) this.getFirst() + (double) this.getLast()) / 2.0;
     }
 

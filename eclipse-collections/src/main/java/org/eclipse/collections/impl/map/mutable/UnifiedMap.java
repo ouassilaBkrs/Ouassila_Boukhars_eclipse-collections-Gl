@@ -437,58 +437,7 @@ public class UnifiedMap<K, V> extends AbstractMutableMap<K, V>
         return this.chainedUpdateValue(key, index, factory, function);
     }
 
-    private V chainedUpdateValue(K key, int index, Function0<? extends V> factory, Function<? super V, ? extends V> function)
-    {
-        if (this.table[index] == CHAINED_KEY)
-        {
-            Object[] chain = (Object[]) this.table[index + 1];
-            for (int i = 0; i < chain.length; i += 2)
-            {
-                if (chain[i] == null)
-                {
-                    chain[i] = UnifiedMap.toSentinelIfNull(key);
-                    V result = function.valueOf(factory.value());
-                    chain[i + 1] = result;
-                    if (++this.occupied > this.maxSize)
-                    {
-                        this.rehash(this.table.length);
-                    }
-                    return result;
-                }
-                if (this.nonNullTableObjectEquals(chain[i], key))
-                {
-                    V oldValue = (V) chain[i + 1];
-                    V result = function.valueOf(oldValue);
-                    chain[i + 1] = result;
-                    return result;
-                }
-            }
-            Object[] newChain = new Object[chain.length + 4];
-            System.arraycopy(chain, 0, newChain, 0, chain.length);
-            this.table[index + 1] = newChain;
-            newChain[chain.length] = UnifiedMap.toSentinelIfNull(key);
-            V result = function.valueOf(factory.value());
-            newChain[chain.length + 1] = result;
-            if (++this.occupied > this.maxSize)
-            {
-                this.rehash(this.table.length);
-            }
-            return result;
-        }
-        Object[] newChain = new Object[4];
-        newChain[0] = this.table[index];
-        newChain[1] = this.table[index + 1];
-        newChain[2] = UnifiedMap.toSentinelIfNull(key);
-        V result = function.valueOf(factory.value());
-        newChain[3] = result;
-        this.table[index] = CHAINED_KEY;
-        this.table[index + 1] = newChain;
-        if (++this.occupied > this.maxSize)
-        {
-            this.rehash(this.table.length);
-        }
-        return result;
-    }
+
 
     @Override
     public <P> V updateValueWith(K key, Function0<? extends V> factory, Function2<? super V, ? super P, ? extends V> function, P parameter)

@@ -37,7 +37,7 @@ import org.eclipse.collections.api.stack.StackIterable;
 import org.eclipse.collections.api.tuple.Pair;
 import org.eclipse.collections.api.tuple.primitive.ObjectIntPair;
 import org.eclipse.collections.impl.AbstractRichIterableTestCase;
-import org.eclipse.collections.impl.bag.sorted.mutable.TreeBag;
+import org.eclipse.collections.impl.bag.sorted.mutable.MutableSortedTreeBag;
 import org.eclipse.collections.impl.block.factory.Comparators;
 import org.eclipse.collections.impl.block.factory.Functions;
 import org.eclipse.collections.impl.block.factory.IntegerPredicates;
@@ -1188,13 +1188,13 @@ public abstract class StackIterableTestCase
     @Test
     public void toSortedBag()
     {
-        SortedBag<Integer> expected = TreeBag.newBagWith(1, 2, 2, 4, 5);
+        SortedBag<Integer> expected = MutableSortedTreeBag.newBagWith(1, 2, 2, 4, 5);
         StackIterable<Integer> stack = this.newStackWith(2, 2, 1, 5, 4);
 
         Verify.assertSortedBagsEqual(expected, stack.toSortedBag());
         Assert.assertEquals(Lists.mutable.with(1, 2, 2, 4, 5), stack.toSortedBag().toList());
 
-        SortedBag<Integer> expected2 = TreeBag.newBagWith(Comparators.reverseNaturalOrder(), 1, 2, 2, 4, 5);
+        SortedBag<Integer> expected2 = MutableSortedTreeBag.newBagWith(Comparators.reverseNaturalOrder(), 1, 2, 2, 4, 5);
         Verify.assertSortedBagsEqual(expected2, stack.toSortedBag(Comparators.reverseNaturalOrder()));
         Assert.assertEquals(
                 Lists.mutable.with(5, 4, 2, 2, 1),
@@ -1205,7 +1205,7 @@ public abstract class StackIterableTestCase
     @Test
     public void toSortedBagBy()
     {
-        SortedBag<Integer> expected = TreeBag.newBagWith(1, 2, 3, 3, 4, 5);
+        SortedBag<Integer> expected = MutableSortedTreeBag.newBagWith(1, 2, 3, 3, 4, 5);
 
         StackIterable<Integer> stack = this.newStackWith(1, 2, 3, 3, 4, 5);
         Verify.assertSortedBagsEqual(

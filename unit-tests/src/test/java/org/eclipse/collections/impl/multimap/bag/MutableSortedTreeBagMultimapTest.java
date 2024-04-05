@@ -16,7 +16,7 @@ import java.util.Comparator;
 import org.eclipse.collections.api.bag.sorted.MutableSortedBag;
 import org.eclipse.collections.api.multimap.sortedbag.MutableSortedBagMultimap;
 import org.eclipse.collections.api.tuple.Pair;
-import org.eclipse.collections.impl.bag.sorted.mutable.TreeBag;
+import org.eclipse.collections.impl.bag.sorted.mutable.MutableSortedTreeBag;
 import org.eclipse.collections.impl.block.factory.IntegerPredicates;
 import org.eclipse.collections.impl.list.Interval;
 import org.eclipse.collections.impl.list.mutable.FastList;
@@ -31,7 +31,7 @@ import org.junit.Test;
  * @deprecated in 6.0
  */
 @Deprecated
-public class TreeBagMultimapTest extends org.eclipse.collections.impl.multimap.bag.sorted.TreeBagMultimapTest
+public class MutableSortedTreeBagMultimapTest extends org.eclipse.collections.impl.multimap.bag.sorted.MutableSortedTreeBagMultimapTest
 {
     @Override
     protected <K, V> MutableSortedBagMultimap<K, V> newMultimap(Comparator<V> comparator)
@@ -62,9 +62,9 @@ public class TreeBagMultimapTest extends org.eclipse.collections.impl.multimap.b
 
     @SafeVarargs
     @Override
-    protected final <V> TreeBag<V> createCollection(V... args)
+    protected final <V> MutableSortedTreeBag<V> createCollection(V... args)
     {
-        return TreeBag.newBagWith(args);
+        return MutableSortedTreeBag.newBagWith(args);
     }
 
     @Override
@@ -82,7 +82,7 @@ public class TreeBagMultimapTest extends org.eclipse.collections.impl.multimap.b
         Verify.assertSize(5, map.keysView().toList());
         for (int i = 1; i < 6; ++i)
         {
-            Verify.assertSortedBagsEqual(TreeBag.newBag(Interval.oneTo(i)), map.get(i));
+            Verify.assertSortedBagsEqual(MutableSortedTreeBag.newBag(Interval.oneTo(i)), map.get(i));
         }
     }
 
@@ -96,11 +96,11 @@ public class TreeBagMultimapTest extends org.eclipse.collections.impl.multimap.b
             revMap.put(IntegerPredicates.isOdd().accept(i), i);
         }
         Verify.assertSize(2, revMap.keysView().toList());
-        Verify.assertSortedBagsEqual(TreeBag.newBagWith(Collections.reverseOrder(), 9, 7, 5, 3, 1), revMap.get(Boolean.TRUE));
-        Verify.assertSortedBagsEqual(TreeBag.newBagWith(Collections.reverseOrder(), 8, 6, 4, 2), revMap.get(Boolean.FALSE));
+        Verify.assertSortedBagsEqual(MutableSortedTreeBag.newBagWith(Collections.reverseOrder(), 9, 7, 5, 3, 1), revMap.get(Boolean.TRUE));
+        Verify.assertSortedBagsEqual(MutableSortedTreeBag.newBagWith(Collections.reverseOrder(), 8, 6, 4, 2), revMap.get(Boolean.FALSE));
         MutableSortedBagMultimap<Boolean, Integer> revMap2 = TreeBagMultimap.newMultimap(revMap);
         Verify.assertMapsEqual(revMap2.toMap(), revMap.toMap());
-        Verify.assertSortedBagsEqual(TreeBag.newBagWith(Collections.reverseOrder(), 9, 7, 5, 3, 1), revMap2.get(Boolean.TRUE));
+        Verify.assertSortedBagsEqual(MutableSortedTreeBag.newBagWith(Collections.reverseOrder(), 9, 7, 5, 3, 1), revMap2.get(Boolean.TRUE));
     }
 
     @Override
@@ -110,9 +110,9 @@ public class TreeBagMultimapTest extends org.eclipse.collections.impl.multimap.b
         TreeBagMultimap<Integer, Integer> bagMultimap = TreeBagMultimap.newMultimap(Collections.reverseOrder());
         MutableSortedBag<Integer> collection = bagMultimap.createCollection();
         collection.addAll(FastList.newListWith(1, 4, 2, 3, 5, 5));
-        Verify.assertSortedBagsEqual(TreeBag.newBagWith(Collections.reverseOrder(), 5, 5, 4, 3, 2, 1), collection);
+        Verify.assertSortedBagsEqual(MutableSortedTreeBag.newBagWith(Collections.reverseOrder(), 5, 5, 4, 3, 2, 1), collection);
         bagMultimap.putAll(1, collection);
-        Verify.assertSortedBagsEqual(TreeBag.newBagWith(Collections.reverseOrder(), 5, 5, 4, 3, 2, 1), collection);
+        Verify.assertSortedBagsEqual(MutableSortedTreeBag.newBagWith(Collections.reverseOrder(), 5, 5, 4, 3, 2, 1), collection);
         bagMultimap.put(1, 0);
         Assert.assertEquals(Integer.valueOf(0), bagMultimap.get(1).getLast());
         bagMultimap.putAll(2, FastList.newListWith(0, 1, 2, 3, 4, 5, 5));

@@ -14,7 +14,7 @@ import org.eclipse.collections.impl.block.factory.Comparators;
 import org.eclipse.collections.impl.test.Verify;
 import org.junit.Test;
 
-public class TreeBagMultimapSerializationTest
+public class MutableSortedTreeBagMultimapSerializationTest
 {
     @Test
     public void serializedForm()

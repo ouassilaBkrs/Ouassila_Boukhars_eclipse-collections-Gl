@@ -12,7 +12,7 @@ package org.eclipse.collections.test.bag.immutable.sorted;
 
 import org.eclipse.collections.api.bag.sorted.ImmutableSortedBag;
 import org.eclipse.collections.api.bag.sorted.MutableSortedBag;
-import org.eclipse.collections.impl.bag.sorted.mutable.TreeBag;
+import org.eclipse.collections.impl.bag.sorted.mutable.MutableSortedTreeBag;
 import org.eclipse.collections.impl.block.factory.Comparators;
 import org.eclipse.collections.impl.test.junit.Java8Runner;
 import org.eclipse.collections.test.IterableTestCase;
@@ -25,7 +25,7 @@ public class ImmutableSortedBagImplTest implements ImmutableSortedBagTestCase
     @Override
     public final <T> ImmutableSortedBag<T> newWith(T... elements)
     {
-        MutableSortedBag<T> result = new TreeBag<>(Comparators.reverseNaturalOrder());
+        MutableSortedBag<T> result = new MutableSortedTreeBag<>(Comparators.reverseNaturalOrder());
         IterableTestCase.addAllTo(elements, result);
         return result.toImmutable();
     }

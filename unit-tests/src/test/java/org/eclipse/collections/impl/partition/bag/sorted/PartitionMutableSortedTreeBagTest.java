@@ -18,7 +18,7 @@ import org.eclipse.collections.impl.block.factory.Comparators;
 import org.junit.Assert;
 import org.junit.Test;
 
-public class PartitionTreeBagTest
+public class PartitionMutableSortedTreeBagTest
 {
     @Test
     public void toImmutable()

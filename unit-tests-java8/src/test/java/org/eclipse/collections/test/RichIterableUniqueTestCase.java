@@ -41,7 +41,7 @@ import org.eclipse.collections.api.multimap.Multimap;
 import org.eclipse.collections.api.multimap.MutableMultimap;
 import org.eclipse.collections.api.partition.PartitionIterable;
 import org.eclipse.collections.api.tuple.Pair;
-import org.eclipse.collections.impl.bag.sorted.mutable.TreeBag;
+import org.eclipse.collections.impl.bag.sorted.mutable.MutableSortedTreeBag;
 import org.eclipse.collections.impl.block.factory.Comparators;
 import org.eclipse.collections.impl.block.factory.Functions;
 import org.eclipse.collections.impl.block.factory.IntegerPredicates;
@@ -1106,19 +1106,19 @@ public interface RichIterableUniqueTestCase
         RichIterable<Integer> iterable = this.newWith(4, 3, 2, 1);
 
         assertEquals(
-                TreeBag.newBagWith(1, 2, 3, 4),
+                MutableSortedTreeBag.newBagWith(1, 2, 3, 4),
                 iterable.toSortedBag());
 
         assertEquals(
-                TreeBag.newBagWith(Comparators.reverseNaturalOrder(), 4, 3, 2, 1),
+                MutableSortedTreeBag.newBagWith(Comparators.reverseNaturalOrder(), 4, 3, 2, 1),
                 iterable.toSortedBag(Comparators.reverseNaturalOrder()));
 
         assertEquals(
-                TreeBag.newBagWith(Comparators.byFunction(Functions.identity()), 1, 2, 3, 4),
+                MutableSortedTreeBag.newBagWith(Comparators.byFunction(Functions.identity()), 1, 2, 3, 4),
                 iterable.toSortedBagBy(Functions.identity()));
 
         assertEquals(
-                TreeBag.newBagWith(Comparators.byFunction((Integer each) -> each * -1), 4, 3, 2, 1),
+                MutableSortedTreeBag.newBagWith(Comparators.byFunction((Integer each) -> each * -1), 4, 3, 2, 1),
                 iterable.toSortedBagBy(each -> each * -1));
     }
 

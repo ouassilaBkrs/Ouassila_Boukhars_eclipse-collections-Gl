@@ -33,7 +33,7 @@ import org.eclipse.collections.api.set.sorted.MutableSortedSet;
 import org.eclipse.collections.api.tuple.Pair;
 import org.eclipse.collections.api.tuple.primitive.ObjectBooleanPair;
 import org.eclipse.collections.impl.bag.mutable.HashBag;
-import org.eclipse.collections.impl.bag.sorted.mutable.TreeBag;
+import org.eclipse.collections.impl.bag.sorted.mutable.MutableSortedTreeBag;
 import org.eclipse.collections.impl.block.factory.Comparators;
 import org.eclipse.collections.impl.block.factory.Predicates;
 import org.eclipse.collections.impl.block.factory.Predicates2;
@@ -595,7 +595,7 @@ public abstract class AbstractObjectBooleanMapKeyValuesViewTestCase
     {
         RichIterable<ObjectBooleanPair<Integer>> pairs = this.newWith(5, false, 1, true, 2, true);
         MutableSortedBag<ObjectBooleanPair<Integer>> bag = pairs.toSortedBag();
-        Verify.assertSortedBagsEqual(TreeBag.newBagWith(PrimitiveTuples.pair(Integer.valueOf(1), true), PrimitiveTuples.pair(Integer.valueOf(2), true), PrimitiveTuples.pair(Integer.valueOf(5), false)), bag);
+        Verify.assertSortedBagsEqual(MutableSortedTreeBag.newBagWith(PrimitiveTuples.pair(Integer.valueOf(1), true), PrimitiveTuples.pair(Integer.valueOf(2), true), PrimitiveTuples.pair(Integer.valueOf(5), false)), bag);
     }
 
     @Test
@@ -603,7 +603,7 @@ public abstract class AbstractObjectBooleanMapKeyValuesViewTestCase
     {
         RichIterable<ObjectBooleanPair<Integer>> pairs = this.newWith(5, false, 1, true, 2, true);
         MutableSortedBag<ObjectBooleanPair<Integer>> bag = pairs.toSortedBag(Comparators.reverseNaturalOrder());
-        Verify.assertSortedBagsEqual(TreeBag.newBagWith(Comparators.reverseNaturalOrder(), PrimitiveTuples.pair(Integer.valueOf(5), false), PrimitiveTuples.pair(Integer.valueOf(2), true), PrimitiveTuples.pair(Integer.valueOf(1), true)), bag);
+        Verify.assertSortedBagsEqual(MutableSortedTreeBag.newBagWith(Comparators.reverseNaturalOrder(), PrimitiveTuples.pair(Integer.valueOf(5), false), PrimitiveTuples.pair(Integer.valueOf(2), true), PrimitiveTuples.pair(Integer.valueOf(1), true)), bag);
     }
 
     @Test
@@ -611,7 +611,7 @@ public abstract class AbstractObjectBooleanMapKeyValuesViewTestCase
     {
         RichIterable<ObjectBooleanPair<Integer>> pairs = this.newWith(5, false, 1, true, 2, true);
         MutableSortedBag<ObjectBooleanPair<Integer>> bag = pairs.toSortedBagBy(String::valueOf);
-        Verify.assertSortedBagsEqual(TreeBag.newBagWith(PrimitiveTuples.pair(Integer.valueOf(1), true), PrimitiveTuples.pair(Integer.valueOf(2), true), PrimitiveTuples.pair(Integer.valueOf(5), false)), bag);
+        Verify.assertSortedBagsEqual(MutableSortedTreeBag.newBagWith(PrimitiveTuples.pair(Integer.valueOf(1), true), PrimitiveTuples.pair(Integer.valueOf(2), true), PrimitiveTuples.pair(Integer.valueOf(5), false)), bag);
     }
 
     @Test

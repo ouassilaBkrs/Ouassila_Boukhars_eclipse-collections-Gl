@@ -15,7 +15,7 @@ import java.util.Comparator;
 import org.eclipse.collections.api.bag.sorted.MutableSortedBag;
 import org.eclipse.collections.api.partition.bag.sorted.PartitionImmutableSortedBag;
 import org.eclipse.collections.api.partition.bag.sorted.PartitionMutableSortedBag;
-import org.eclipse.collections.impl.bag.sorted.mutable.TreeBag;
+import org.eclipse.collections.impl.bag.sorted.mutable.MutableSortedTreeBag;
 
 /**
  * @since 4.2
@@ -27,8 +27,8 @@ public class PartitionTreeBag<T> implements PartitionMutableSortedBag<T>
 
     public PartitionTreeBag(Comparator<? super T> comparator)
     {
-        this.selected = TreeBag.newBag(comparator);
-        this.rejected = TreeBag.newBag(comparator);
+        this.selected = MutableSortedTreeBag.newBag(comparator);
+        this.rejected = MutableSortedTreeBag.newBag(comparator);
     }
 
     @Override

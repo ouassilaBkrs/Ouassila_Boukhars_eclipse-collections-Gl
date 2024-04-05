@@ -30,7 +30,7 @@ import org.eclipse.collections.api.multimap.sortedbag.ImmutableSortedBagMultimap
 import org.eclipse.collections.api.multimap.sortedbag.MutableSortedBagMultimap;
 import org.eclipse.collections.api.multimap.sortedbag.SortedBagMultimap;
 import org.eclipse.collections.api.tuple.Pair;
-import org.eclipse.collections.impl.bag.sorted.mutable.TreeBag;
+import org.eclipse.collections.impl.bag.sorted.mutable.MutableSortedTreeBag;
 import org.eclipse.collections.impl.map.mutable.UnifiedMap;
 import org.eclipse.collections.impl.multimap.AbstractMutableMultimap;
 import org.eclipse.collections.impl.multimap.bag.HashBagMultimap;
@@ -116,7 +116,7 @@ public final class TreeBagMultimap<K, V>
     @Override
     protected MutableSortedBag<V> createCollection()
     {
-        return TreeBag.newBag(this.comparator);
+        return MutableSortedTreeBag.newBag(this.comparator);
     }
 
     @Override

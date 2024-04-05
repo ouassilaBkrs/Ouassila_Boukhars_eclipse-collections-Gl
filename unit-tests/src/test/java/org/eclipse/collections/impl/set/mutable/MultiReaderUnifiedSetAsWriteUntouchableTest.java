@@ -16,7 +16,7 @@ import org.eclipse.collections.api.RichIterable;
 import org.eclipse.collections.api.bag.sorted.ImmutableSortedBag;
 import org.eclipse.collections.api.bag.sorted.MutableSortedBag;
 import org.eclipse.collections.api.set.MutableSet;
-import org.eclipse.collections.impl.bag.sorted.mutable.TreeBag;
+import org.eclipse.collections.impl.bag.sorted.mutable.MutableSortedTreeBag;
 import org.eclipse.collections.impl.collection.mutable.AbstractCollectionTestCase;
 import org.eclipse.collections.impl.test.Verify;
 import org.junit.Assert;
@@ -80,7 +80,7 @@ public class MultiReaderUnifiedSetAsWriteUntouchableTest extends AbstractCollect
     {
         RichIterable<Integer> integers = this.newWith(1, 2, 5, 3, 4);
         MutableSortedBag<Integer> bag = integers.toSortedBag();
-        Verify.assertSortedBagsEqual(TreeBag.newBagWith(1, 2, 3, 4, 5), bag);
+        Verify.assertSortedBagsEqual(MutableSortedTreeBag.newBagWith(1, 2, 3, 4, 5), bag);
     }
 
     @Override
@@ -89,7 +89,7 @@ public class MultiReaderUnifiedSetAsWriteUntouchableTest extends AbstractCollect
     {
         RichIterable<Integer> integers = this.newWith(2, 4, 1, 3);
         MutableSortedBag<Integer> bag = integers.toSortedBag(Collections.reverseOrder());
-        Verify.assertSortedBagsEqual(TreeBag.newBagWith(Collections.reverseOrder(), 4, 3, 2, 1), bag);
+        Verify.assertSortedBagsEqual(MutableSortedTreeBag.newBagWith(Collections.reverseOrder(), 4, 3, 2, 1), bag);
     }
 
     @Override
@@ -98,7 +98,7 @@ public class MultiReaderUnifiedSetAsWriteUntouchableTest extends AbstractCollect
     {
         RichIterable<Integer> integers = this.newWith(2, 4, 1, 3);
         ImmutableSortedBag<Integer> bag = integers.toImmutableSortedBag(Collections.reverseOrder());
-        Verify.assertSortedBagsEqual(TreeBag.newBagWith(Collections.reverseOrder(), 4, 3, 2, 1), bag);
+        Verify.assertSortedBagsEqual(MutableSortedTreeBag.newBagWith(Collections.reverseOrder(), 4, 3, 2, 1), bag);
     }
 
     @Override
@@ -114,6 +114,6 @@ public class MultiReaderUnifiedSetAsWriteUntouchableTest extends AbstractCollect
     {
         RichIterable<Integer> integers = this.newWith(2, 4, 1, 3);
         MutableSortedBag<Integer> bag = integers.toSortedBagBy(String::valueOf);
-        Verify.assertSortedBagsEqual(TreeBag.newBagWith(1, 2, 3, 4), bag);
+        Verify.assertSortedBagsEqual(MutableSortedTreeBag.newBagWith(1, 2, 3, 4), bag);
     }
 }
