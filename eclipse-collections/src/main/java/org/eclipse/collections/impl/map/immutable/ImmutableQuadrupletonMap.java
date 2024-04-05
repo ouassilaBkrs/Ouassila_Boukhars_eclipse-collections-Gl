@@ -283,51 +283,52 @@ final class ImmutableQuadrupletonMap<K, V>
         throw new IllegalStateException("Size must be 1 but was " + this.size());
     }
 
-    s
 
-    private ImmutableMap<K, V> filter(Predicate2<? super K, ? super V> predicate)
-    {
-        int result = this.calculateResult(predicate);
 
-        return this.createImmutableMap(result);
+    private ImmutableMap<K, V> filter(Predicate2<? super K, ? super V> predicate) {
+        int result = this.computeFilterResult(predicate);
+        ImmutableMap<K, V> filteredMap = Maps.immutable.empty();
+
+        if ((result & 1) != 0) {
+            filteredMap = filteredMap.newWithKeyValue(this.key1, this.value1);
+        }
+
+        if ((result & 2) != 0) {
+            filteredMap = filteredMap.newWithKeyValue(this.key2, this.value2);
+        }
+
+        if ((result & 4) != 0) {
+            filteredMap = filteredMap.newWithKeyValue(this.key3, this.value3);
+        }
+
+        if ((result & 8) != 0) {
+            filteredMap = filteredMap.newWithKeyValue(this.key4, this.value4);
+        }
+
+        return filteredMap;
     }
 
-    private int calculateResult(Predicate2<? super K, ? super V> predicate) {
+
+    private int computeFilterResult(Predicate2<? super K, ? super V> predicate) {
         int result = 0;
 
         if (predicate.accept(this.key1, this.value1)) {
             result |= 1;
         }
+
         if (predicate.accept(this.key2, this.value2)) {
             result |= 2;
         }
+
         if (predicate.accept(this.key3, this.value3)) {
             result |= 4;
         }
+
         if (predicate.accept(this.key4, this.value4)) {
             result |= 8;
         }
 
         return result;
-    }
-
-    private ImmutableMap<K, V> createImmutableMap(int result) {
-        ImmutableMap.Builder<K, V> builder = Maps.immutable.builder();
-
-        if ((result & 1) != 0) {
-            builder.put(this.key1, this.value1);
-        }
-        if ((result & 2) != 0) {
-            builder.put(this.key2, this.value2);
-        }
-        if ((result & 4) != 0) {
-            builder.put(this.key3, this.value3);
-        }
-        if ((result & 8) != 0) {
-            builder.put(this.key4, this.value4);
-        }
-
-        return builder.build();
     }
 
     private Object writeReplace()
