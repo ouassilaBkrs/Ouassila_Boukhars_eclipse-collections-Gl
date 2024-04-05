@@ -863,12 +863,12 @@ public final class LongInterval
         return this.median();
     }
 
-
+    private static final double  DIVISEUR_MEDIAN = 2.0;
     @Override
     public double median()
     {
 
-        return ((double) this.getFirst() + (double) this.getLast()) / 2.0;
+        return ((double) this.getFirst() + (double) this.getLast()) / DIVISEUR_MEDIAN ;
     }
 
     @Override
