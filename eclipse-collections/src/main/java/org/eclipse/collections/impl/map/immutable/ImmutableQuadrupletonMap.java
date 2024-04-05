@@ -208,10 +208,10 @@ final class ImmutableQuadrupletonMap<K, V>
     @Override
     public void forEachWithIndex(ObjectIntProcedure<? super V> objectIntProcedure)
     {
-        this.forEachProcedure((key, value) -> {
-            final int index = 0;
-            objectIntProcedure.value(value, index);
-        });
+        objectIntProcedure.value(this.value1, 0);
+        objectIntProcedure.value(this.value2, 1);
+        objectIntProcedure.value(this.value3, 2);
+        objectIntProcedure.value(this.value4, 3);
     }
 
 
